@@ -1,8 +1,18 @@
 const client = require("./client");
 
+const getProviders = async () => {
+  try {
+    const { rows } = await client.query(`
+      SELECT *
+      FROM providers
+      `);
+    return rows; 
+  } catch (error) {
+    throw error;
+  }
+}
 
-
-async function createProvider({username, password, name, jobCode}) {
+const createProvider = async ({username, password, name, jobCode}) => {
   try {
     const { rows: [provider] } = await client.query(`
       INSERT INTO providers(username, password, name, "jobCode")
@@ -15,7 +25,13 @@ async function createProvider({username, password, name, jobCode}) {
   }
 }
 
+const updateProvider = async () => {
+
+}
+
 
 module.exports={
-  createProvider
+  createProvider,
+  getProviders,
+  updateProvider
 }

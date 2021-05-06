@@ -1,6 +1,16 @@
 const client = require("./client");
 
-
+const getServices = async () => {
+  try {
+    const { rows } = await client.query(`
+      SELECT *
+      FROM services
+      `);
+    return rows; 
+  } catch (error) {
+    throw error;
+  }
+}
 
 async function createService({serviceName, serviceCode, patientServiceId, date, timeIn}) {
   try {
@@ -17,5 +27,6 @@ async function createService({serviceName, serviceCode, patientServiceId, date, 
 
 
 module.exports={
+  getServices,
   createService
 }

@@ -51,8 +51,8 @@ apiRouter.use("/admin", adminRouter);
 // const patientRouter = require("./patient");
 // apiRouter.use("/patient", patientRouter);
 
-// const servicesRouter = require("./services");
-// apiRouter.use("/services", servicesRouter);
+const servicesRouter = require("./services");
+apiRouter.use("/services", servicesRouter);
 
 
 module.exports = apiRouter;

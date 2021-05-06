@@ -1,6 +1,6 @@
 const {createPatient} = require('./patients')
 const {getProviders, updateProvider, createProvider} = require('./providers')
-const {createService} = require('./services')
+const {getServices, createService} = require('./services')
 
 
 
@@ -9,5 +9,6 @@ module.exports={
   getProviders, 
   updateProvider,
   createProvider,
+  getServices,
   createService,
 }

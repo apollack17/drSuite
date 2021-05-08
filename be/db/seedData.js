@@ -17,12 +17,21 @@ async function createTables() {
     await client.query(`
     CREATE TABLE patients (
         id SERIAL PRIMARY KEY,
-        name character varying(255) NOT NULL,
-        address character varying(255) NOT NULL,
-        email character varying(255),
-        phone character varying(255),
+
+        "firstName" character varying(255) NOT NULL,
+        "lastName" character varying(255) NOT NULL,
+        "middleInit" character varying(255),
         dob character varying(255),
         ssn character varying(255),
+
+        "streetAddress" character varying(255) NOT NULL,
+        city character varying(255) NOT NULL,
+        state character varying(255) NOT NULL,
+        zipcode character varying(255) NOT NULL, 
+
+        email character varying(255),
+        phone character varying(255),
+
         "insuranceProviderName" character varying(255),
         "planId" character varying(255),
         "memberId" character varying(255),
@@ -37,22 +46,24 @@ async function createTables() {
     await client.query(`
     CREATE TABLE providers (
       id SERIAL PRIMARY KEY,
-      username TEXT NOT NULL UNIQUE,
-      password TEXT NOT NULL,
-      name TEXT,
-      "jobCode" character varying(500) 
+      username character varying(255) NOT NULL UNIQUE,
+      password character varying(255) NOT NULL,
+      "firstName" character varying(255),
+      "lastName" character varying(255),
+      "jobCode" character varying(255) 
   );
   
     `);
     await client.query(`
     CREATE TABLE services (
       id SERIAL PRIMARY KEY,
-      "serviceName" text,
-      "serviceCode" text,
+      "serviceName" character varying(255),
+      "serviceCode" character varying(255),
       "date" date,
       "timeIn" VARCHAR(255),
       "timeOut" VARCHAR(255),
-      "patientServiceId" integer REFERENCES patients(id)
+      "patientServiceId" integer REFERENCES patients(id),
+      "providerServiceId" integer REFERENCES providers(id)
   );
     `);
   } catch (error) {
@@ -64,12 +75,17 @@ async function createInitialPatients() {
   try {
     const patientsToCreate = [
       {
-        name: "Stephen Doe",
-        address: "1333 13th St, Pensacola Fl, 32501",
-        email: "stephenDoe@gtest.com",
-        phone: "(255)555-5467",
-        dob: "05/05/1955",
+        firstName: "Stephen",
+        lastName: "Doe",
+        middleInit: "K",
+        dob: "05051955",
         ssn: "2233453933",
+        streetAddress: "1333 13th St",
+        city: "Pensacola",
+        state: "FL",
+        zipcode: "32501",
+        email: "stephenDoe@gtest.com",
+        phone: "2555555467",
         insuranceProviderName: "Blue Horse",
         planId: "00ATEST",
         memberId: "00r232TEST",
@@ -77,15 +93,20 @@ async function createInitialPatients() {
         policyNumber: "008383844EiTESTj22",
         policyHolderName: "Sarie Doe",
         payerId: "5005test",
-        planDate: "05/22/2020"
+        planDate: "05222020"
       },
       {
-        name: "Tjane Doe",
-        address: "11 Renold St, Navarre Fl, 32201",
-        email: "janeDoe@gtest.com",
-        phone: "(555)535-5475",
-        dob: "05/04/1995",
+        firstName: "William",
+        lastName: "Doent",
+        middleInit: "J",
+        dob: "05041995",
         ssn: "555555555",
+        streetAddress: "11 Renold St",
+        city: "Navarre",
+        state: "Fl", 
+        zipcode: "32201",
+        email: "janeDoe@gtest.com",
+        phone: "5555355475",
         insuranceProviderName: "Brown Cow",
         planId: "16ATEST",
         memberId: "44r232TEST",
@@ -93,15 +114,20 @@ async function createInitialPatients() {
         policyNumber: "118383844EiTESTj22",
         policyHolderName: "Mary Doe",
         payerId: "55test",
-        planDate: "01/22/2000"
+        planDate: "01222000"
       },
       {
-        name: "Marty Doe",
-        address: "109 Emanth St, St. Pete Fl, 32891",
-        email: "sentinel@ptest.com",
-        phone: "(505)555-5467",
-        dob: "01/03/1995",
+        firstName: "Zackary",
+        lastName: "Doe",
+        middleInit: "A",
+        dob: "01031995",
         ssn: "0033453933",
+        streetAddress: "109 Emanth St",
+        city: "St. Pete",
+        state: "Fl",
+        zipcode: "32891",
+        email: "sentinel@ptest.com",
+        phone: "5055555467",
         insuranceProviderName: "Blue Sleigh",
         planId: "1600000ATEST",
         memberId: "44r00000232TEST",
@@ -109,15 +135,20 @@ async function createInitialPatients() {
         policyNumber: "00118383844EiTESTj22",
         policyHolderName: "Martty Doe",
         payerId: "0055test",
-        planDate: "01/22/1952"
+        planDate: "01221952"
       },
       {
-        name: "Kelly Doe",
-        address: "473 Relinth St, Tampa Fl, 32833",
-        email: "rent558@qtest.com",
-        phone: "(533)555-7334",
-        dob: "06/23/1965",
+        firstName: "Yolanda",
+        lastName: "Anonderson",
+        middleInit: "N",
+        dob: "06231965",
         ssn: "1033453935",
+        streetAddress: "473 Relinth St",
+        city: "Tampa",
+        state: "Fl",
+        zipcode: "32833",
+        email: "rent558@qtest.com",
+        phone: "5335557334",
         insuranceProviderName: "Blue Sleigh",
         planId: "1900ATEST",
         memberId: "40LL00232TEST",
@@ -125,31 +156,41 @@ async function createInitialPatients() {
         policyNumber: "001EiTESTj22",
         policyHolderName: "Pennie Doe",
         payerId: "0test",
-        planDate: "11/21/1992"
+        planDate: "11211992"
       },
       {
-        name: "Frankie Doe",
-        address: "866757 N. Pleace Ave, Orlanda Fl, 33736",
-        email: "sentinel@ptest.com",
-        phone: "(505)555-5467",
-        dob: "01/03/1995",
+        firstName: "Samantha",
+        lastName: "Anonite",
+        middleInit: "W",
+        dob: "01031995",
         ssn: "0033453933",
+        streetAddress: "866757 N. Pleace Ave",
+        city: "Orlanda",
+        state: "Fl",
+        zipcode: "33736",        
+        email: "sentinel@ptest.com",
+        phone: "5055555467",
         insuranceProviderName: "Blue Sleigh",
         planId: "1600000ATEST",
         memberId: "44r00000232TEST",
-        groupId: "0000333ERTEST",
+        groupId: "000033g3ERTEST",
         policyNumber: "00118383844EiTESTj22",
         policyHolderName: "Gene Doe",
         payerId: "0665test",
-        planDate: "09/09/2000"
+        planDate: "09092000"
       },
       {
-        name: "McKenzie Doe",
-        address: "76 Round Pl, Panama City Fl, 36546",
+        firstName: "Regina",
+        lastName: "Doe",
+        middleInit: "Y",
+        dob: "01031995",
+        ssn: "0033453933",
+        streetAddress: "76 Round Pl",
+        city: "Panama City",
+        state: "Fl",
+        zipcode: "36546",
         email: "sentinel@ptest.com",
         phone: "(505)555-5467",
-        dob: "01/03/1995",
-        ssn: "0033453933",
         insuranceProviderName: "Blue Sleigh",
         planId: "1600000ATEST",
         memberId: "44r00000232TEST",
@@ -157,15 +198,20 @@ async function createInitialPatients() {
         policyNumber: "00118383844EiTESTj22",
         policyHolderName: "Bennie Doe",
         payerId: "25455test",
-        planDate: "01/22/1952"
+        planDate: "01221952"
       },
       {
-        name: "Zac Doe",
-        address: "8123 Testeer Ave, Seminole Beach Fl, 47446",
-        email: "sentinel@ptest.com",
-        phone: "(505)555-5467",
-        dob: "01/03/1995",
+        firstName: "James",
+        lastName: "Doe",
+        middleInit: "X",
+        dob: "01031995",
         ssn: "0033453933",
+        streetAddress: "8123 Testeer Ave",
+        city: "Seminole Beach",
+        state: "Fl",
+        zipcode: "47446",
+        email: "sentinel@ptest.com",
+        phone: "5055555467",
         insuranceProviderName: "Blue Sleigh",
         planId: "1600000ATEST",
         memberId: "44r00000232TEST",
@@ -173,7 +219,7 @@ async function createInitialPatients() {
         policyNumber: "00118383844EiTESTj22",
         policyHolderName: "Martty Doe",
         payerId: "0055test",
-        planDate: "01/22/1952"
+        planDate: "01221952"
       },
     ];
     const patients = await Promise.all(patientsToCreate.map(createPatient));
@@ -190,34 +236,39 @@ async function createInitialProviders() {
     console.log("Starting to create providers...");
     const providersToCreate = [
       {
-        username: "gcadmin",
-        password: "georgecarver",
-        name: "George Carver",
-        jobCode: "3A"
-      },
-      {
-        username: "fkadmin",
-        password: "georgecarver",
-        name: "George Carver",
-        jobCode: "3A"
-      },
-      {
-        username: "tsadmin",
-        password: "georgecarver",
-        name: "George Carver",
+        username: "gadmin",
+        password: "admin",
+        firstName: "George",
+        lastName: "Carver",
         jobCode: "3B"
       },
       {
-        username: "owadmin",
-        password: "oscarwildes",
-        name: "Oscar Wilds",
+        username: "madmin",
+        password: "admin",
+        firstName: "Micah",
+        lastName: "Fenti",
+        jobCode: "3B"
+      },
+      {
+        username: "tadmin",
+        password: "admin",
+        firstName: "Tonya",
+        lastName: "Fubu",
+        jobCode: "3B"
+      },
+      {
+        username: "oadmin",
+        password: "admin",
+        firstName: "Oscar",
+        lastName: "Wilds",
         jobCode: "2A"
       },
       {
-        username: "adminAP",
-        password: "banana",
-        name: "Aaron Test",
-        jobCode: "5B"
+        username: "admin",
+        password: "admin",
+        firstName: "Aaron",
+        lastName: "Pollack",
+        jobCode: "1A"
       }
     ];
     
@@ -240,7 +291,8 @@ async function createInitialServices() {
         date: new Date(),
         timeIn: new Date(),
         timeOut: 0,
-        patientServiceId: 2
+        patientServiceId: 2,
+        providerServiceId: 1
       },
       {
         serviceName: "RCheckup",
@@ -248,7 +300,8 @@ async function createInitialServices() {
         date: new Date(),
         timeIn: new Date(),
         timeOut: 0,
-        patientServiceId: 1
+        patientServiceId: 1,
+        providerServiceId: 2
       },
       {
         serviceName: "RCheckup",
@@ -256,7 +309,8 @@ async function createInitialServices() {
         date: new Date(),
         timeIn: new Date(),
         timeOut: 0,
-        patientServiceId: 2
+        patientServiceId: 2,
+        providerServiceId: 3
       },
       {
         serviceName: "RCheckup",
@@ -264,7 +318,8 @@ async function createInitialServices() {
         date: new Date(),
         timeIn: new Date(),
         timeOut: 0,
-        patientServiceId: 2
+        patientServiceId: 2,
+        providerServiceId: 4
       },
       {
         serviceName: "RCheckup",
@@ -272,7 +327,8 @@ async function createInitialServices() {
         date: new Date(),
         timeIn: new Date(),
         timeOut: 0,
-        patientServiceId: 5
+        patientServiceId: 5,
+        providerServiceId: 2
       },
       {
         serviceName: "RCheckup",
@@ -280,7 +336,8 @@ async function createInitialServices() {
         date: new Date(),
         timeIn: new Date(),
         timeOut: 0,
-        patientServiceId: 6
+        patientServiceId: 6,
+        providerServiceId: 3
       },
       {
         serviceName: "RCheckup",
@@ -288,7 +345,8 @@ async function createInitialServices() {
         date: new Date(),
         timeIn: new Date(),
         timeOut: 0,
-        patientServiceId: 1
+        patientServiceId: 6,
+        providerServiceId: 3
       },
       {
         serviceName: "RCheckup",
@@ -296,7 +354,8 @@ async function createInitialServices() {
         date: new Date(),
         timeIn: new Date(),
         timeOut: 0,
-        patientServiceId: 2
+        patientServiceId: 2,
+        providerServiceId: 3
       },
       {
         serviceName: "RCheckup",
@@ -304,7 +363,8 @@ async function createInitialServices() {
         date: new Date(),
         timeIn: new Date(),
         timeOut: 0,
-        patientServiceId: 4
+        patientServiceId: 4,
+        providerServiceId: 4
       }
     ];
     const services = await Promise.all(servicesToCreate.map(createService));

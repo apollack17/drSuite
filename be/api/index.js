@@ -48,8 +48,8 @@ apiRouter.use(async (req, res, next) => {
 const adminRouter = require("./admin");
 apiRouter.use("/admin", adminRouter);
 
-// const patientRouter = require("./patient");
-// apiRouter.use("/patient", patientRouter);
+const patientRouter = require("./patients");
+apiRouter.use("/patients", patientRouter);
 
 const servicesRouter = require("./services");
 apiRouter.use("/services", servicesRouter);

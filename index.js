@@ -18,10 +18,11 @@ server.use(morgan("dev"));
 const apiRouter = require("./be/api");
 server.use("/api", apiRouter);
 
-const providerRouter = require("./be/api");
-server.use("/providers", providerRouter);
+const adminRouter = require("./be/api");
+server.use("/admin", adminRouter);
 
-const adminRouter = require('./be/api')
+const serviceRouter = require('./be/api')
+server.use("/service", serviceRouter)
 
 server.listen(PORT, () => {
   console.log("The server brain is up on port", PORT);

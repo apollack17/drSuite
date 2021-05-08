@@ -4,8 +4,8 @@
   "description": "Dr Suite Check In APP",
   "main": "index.js",
   "scripts": {
-    "seed:dev": "nodemon ./db/seed.js",
-    "seed": "node ./db/seed.js",
+    "seed:dev": "nodemon ./be/db/seed.js",
+    "seed": "node ./be/db/seed.js",
     "start:dev": "nodemon index.js",
     "start": "node index.js",
     "test": "jest",

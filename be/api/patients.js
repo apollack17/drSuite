@@ -31,8 +31,6 @@ patientRouter.get("/", async (req, res, next) => {
   }
 });
 
-
-
 patientRouter.post("/create", async (req, res, next) => {
   try {
     const patient = await createPatient(req.body);

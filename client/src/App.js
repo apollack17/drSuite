@@ -1,14 +1,30 @@
 
-import './App.css';
+import {Admin} from './pages'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <>
+      <Router>
+          <Switch>
+            <Route path="/admin">
+              <h1>testmin</h1>
+              <Admin/>
+            </Route>
+            <Route path="/">
+              <h1>does this render home</h1>
+            </Route>
 
-      </header>
-    </div>
+          </Switch>
+      </Router>
+    </>
   );
 }
 
 export default App;
+

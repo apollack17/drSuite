@@ -19,18 +19,6 @@ patientRouter.get("/", async (req, res, next) => {
   }
 });
 
-patientRouter.get("/", async (req, res, next) => {
-  try {
-    const patients = await getPatients();
-    res.send(patients);
-  } catch ({ name, message }) {
-    next({
-      name: "getAllPatients",
-      message: "There was an error getting patients",
-    });
-  }
-});
-
 patientRouter.post("/create", async (req, res, next) => {
   try {
     const patient = await createPatient(req.body);

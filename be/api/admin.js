@@ -1,5 +1,6 @@
 const express = require("express");
-const { createProvider, getProviders } = require("../db");
+const { createProvider} = require("../db");
+const { getPatients } = require("../db")
 const adminRouter = express.Router();
 
 
@@ -9,12 +10,12 @@ adminRouter.use((req, res, next) => {
 
 adminRouter.get("/", async (req, res, next) => {
   try {
-    const providers = await getProviders();
-    res.send(providers);
+    const patients = await getPatients();
+    res.send(patients);
   } catch ({ name, message }) {
     next({
-      name: "getAllProviders",
-      message: "There was an error getting Providers",
+      name: "getAllPatients",
+      message: "There was an error getting Patients",
     });
   }
 });

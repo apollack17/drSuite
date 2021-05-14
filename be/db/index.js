@@ -1,4 +1,4 @@
-const {getPatients, getPatientByName, createPatient} = require('./patients')
+const {getPatients, getPatientByName, createPatient, getServicesByPatient} = require('./patients')
 const {getProviders, updateProvider, createProvider} = require('./providers')
 const {getServices, createService} = require('./services')
 
@@ -12,5 +12,6 @@ module.exports={
   updateProvider,
   createProvider,
   getServices,
+  getServicesByPatient,
   createService,
 }

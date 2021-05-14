@@ -30,6 +30,18 @@ const getPatientByName = async ({firstName, lastName}) => {
   }
 }
 
+async function getServicesByPatient({ patientServiceId }) {
+  try {
+      const { rows } = await client.query(`
+          SELECT * FROM services
+          WHERE "patientServiceId"=$1;
+      `, [patientServiceId]);
+      return rows;
+  } catch (error) {
+      throw error;
+  }
+}
+
 async function createPatient({firstName, lastName, middleInit, dob, ssn, streetAddress, city, state, zipcode, email, phone, insuranceProviderName, planId, memberId, groupId, policyNumber, policyHolderName, payerId, planDate}) {
   try {
     const { rows: [patient] } = await client.query(`
@@ -47,5 +59,7 @@ async function createPatient({firstName, lastName, middleInit, dob, ssn, streetA
 module.exports={
   getPatients,
   getPatientByName,
+  getServicesByPatient,
   createPatient
+  
 }

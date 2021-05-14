@@ -1,5 +1,5 @@
 const express = require("express");
-const { getPatients, createPatient } = require("../db");
+const { getPatients, createPatient, getServicesByPatient } = require("../db");
 const patientRouter = express.Router();
 
 
@@ -18,6 +18,18 @@ patientRouter.get("/", async (req, res, next) => {
     });
   }
 });
+
+patientRouter.get(`/:id`, async (req, res, next) => {
+  try {
+    const activeServices = await getServicesByPatient();
+    res.send(activeServices);
+  } catch ({name, message}) {
+    next({
+      name: "getAllActiveServices",
+      message: "There was an error getting services by patient"
+    });
+  }
+})
 
 patientRouter.post("/create", async (req, res, next) => {
   try {

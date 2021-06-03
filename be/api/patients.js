@@ -19,6 +19,18 @@ patientRouter.get("/", async (req, res, next) => {
   }
 });
 
+patientRouter.get("/checkin", async (req, res, next) => {
+  try {
+    const patients = await getPatients();
+    res.send({message: 'patient api is alive'});
+  } catch ({ name, message }) {
+    next({
+      name: "getAllPatients",
+      message: "There was an error getting patients",
+    });
+  }
+});
+
 patientRouter.get(`/:id`, async (req, res, next) => {
   try {
     const activeServices = await getServicesByPatient();
@@ -31,10 +43,13 @@ patientRouter.get(`/:id`, async (req, res, next) => {
   }
 })
 
-patientRouter.post("/create", async (req, res, next) => {
+patientRouter.post("/checkin", async (req, res, next) => {
   try {
-    const patient = await createPatient(req.body);
-    res.send(patient);
+    
+    //try breaking out my needed parameters destructured here
+    const {firstName, middleInitial, lastName, street, city, state, zipcode, phoneNumber, email, dob, ssn} = req.body
+    const patient = await createPatient(firstName, middleInitial, lastName, street, city, state, zipcode, phoneNumber, email, dob, ssn);
+    res.send({patient});
   } catch ({ message }) {
     next({ message });
   }

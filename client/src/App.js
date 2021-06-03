@@ -5,6 +5,8 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import { NavComp } from './pages'
+import { StepperControl } from './Stepper'
 
 
 function App() {
@@ -13,10 +15,16 @@ function App() {
       <Router>
           <Switch>
             <Route path="/admin">
+              <NavComp />
               <h1>testmin</h1>
               <Admin/>
             </Route>
+            <Route path="/patient">
+              <NavComp />
+              <StepperControl />
+            </Route>
             <Route path="/">
+              <NavComp />
               <h1>does this render home</h1>
             </Route>
 

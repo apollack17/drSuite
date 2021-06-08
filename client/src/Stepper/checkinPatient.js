@@ -1,5 +1,5 @@
 
-const BASE_URL = "http://localhost:3001"
+const BASE_URL = "http://localhost:3000"
 
 const checkinPatient = async (firstName, middleInitial, lastName, street, city, state, zipcode, phoneNumber, email, dob, ssn) => {
   await fetch(`${BASE_URL}/api/patients/checkin`, {

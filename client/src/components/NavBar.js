@@ -34,7 +34,7 @@ export default function NavComp() {
             DrSuite
           </Typography>
           <Button color="inherit" href="/">Login</Button>
-          <Button color="inherit" href="/checkin">Checkin</Button>
+          <Button color="inherit" href="/patient">Patient</Button>
           <Button color="inherit" href="/admin">Admin</Button>
         </Toolbar>
       </AppBar>

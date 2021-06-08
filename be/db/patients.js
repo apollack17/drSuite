@@ -42,7 +42,7 @@ async function getServicesByPatient({ patientServiceId }) {
   }
 }
 
-async function createPatient({firstName, lastName, middleInit, dob, ssn, streetAddress, city, state, zipcode, email, phone, insuranceProviderName, planId, memberId, groupId, policyNumber, policyHolderName, payerId, planDate}) {
+async function createPatient(firstName, lastName, middleInit, dob, ssn, streetAddress, city, state, zipcode, email, phone, insuranceProviderName, planId, memberId, groupId, policyNumber, policyHolderName, payerId, planDate) {
   try {
     const { rows: [patient] } = await client.query(`
       INSERT INTO patients("firstName", "lastName", "middleInit", "streetAddress", city, state, zipcode, email, phone, dob, ssn, "insuranceProviderName", "planId", "memberId", "groupId", "policyNumber", "policyHolderName", "payerId", "planDate")

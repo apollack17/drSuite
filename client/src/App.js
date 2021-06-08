@@ -1,12 +1,12 @@
 
-import {Admin} from './pages'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
-import { NavComp } from './pages'
+import { NavComp, Admin } from './pages'
 import { StepperControl } from './Stepper'
+import { Button } from '@material-ui/core'
 
 
 function App() {
@@ -25,7 +25,12 @@ function App() {
             </Route>
             <Route path="/">
               <NavComp />
-              <h1>does this render home</h1>
+              <h2>Welcome to DRSUITE</h2>
+              <h3>Please log in or open Patient Portal</h3>
+              <Button>Log In</Button>
+              <Button
+                href="/patient"
+                >Patient Portal</Button>
             </Route>
 
           </Switch>

@@ -2,7 +2,7 @@ import { Component } from 'react'
 import { PatientInfo, AddressInfo, ContactInfo, PersonalInfo, ConfirmationInfo } from '../Stepper'
 import { Button } from '@material-ui/core/'
 import { checkinPatient } from './index'
-const BASE_URL = "http://localhost:3001"
+
 
 export class StepperControl extends Component {
 

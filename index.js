@@ -3,7 +3,7 @@ const server = express();
 const client = require("./be/db/client");
 
 require("dotenv").config();
-const { PORT = 3001 } = process.env;
+const { PORT = 3000 } = process.env;
 
 const morgan = require("morgan");
 const bodyParser = require("body-parser");

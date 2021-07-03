@@ -31,9 +31,10 @@ patientRouter.get("/checkin", async (req, res, next) => {
   }
 });
 
-patientRouter.get(`/:id`, async (req, res, next) => {
+patientRouter.get('/:patientId', async (req, res, next) => {
+  const {patientId} = req.params;
   try {
-    const activeServices = await getServicesByPatient();
+    const activeServices = await getServicesByPatient({id : patientId});
     res.send(activeServices);
   } catch ({name, message}) {
     next({

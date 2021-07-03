@@ -11,6 +11,10 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { ContactInfo, PersonalInfo, AddressInfo, Confirmation } from '../Stepper'
 
+
+import BASE_URL from './index'
+
+
 export default async function CheckIn() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);

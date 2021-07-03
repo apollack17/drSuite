@@ -10,11 +10,14 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 
+
 server.use(express.json());
 server.use(express.urlencoded({extended: true})) //browser comp?. 
 server.use(bodyParser.json());
 server.use(morgan("dev"));
-server.use(cors());
+server.use(cors({
+  origin: "*"
+}));
 
 const apiRouter = require("./be/api");
 server.use("/api", apiRouter);

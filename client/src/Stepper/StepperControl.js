@@ -45,7 +45,7 @@ export class StepperControl extends Component {
   
   
   }
-
+  
   render() {
     const{ step, firstName, middleInitial, lastName, street, city, state, zipcode, email, phone, dob, ssn } = this.state;
     const values = { firstName, middleInitial, lastName, street, city, state, zipcode, email, phone, dob, ssn };

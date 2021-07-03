@@ -30,12 +30,13 @@ const getPatientByName = async ({firstName, lastName}) => {
   }
 }
 
-async function getServicesByPatient({ patientServiceId }) {
+async function getServicesByPatient( {id} ) {
   try {
       const { rows } = await client.query(`
           SELECT * FROM services
           WHERE "patientServiceId"=$1;
-      `, [patientServiceId]);
+      `, [id]);
+      console.log(rows, "this is the backend service Id")
       return rows;
   } catch (error) {
       throw error;
